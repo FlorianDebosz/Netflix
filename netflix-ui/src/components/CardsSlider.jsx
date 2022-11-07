@@ -3,7 +3,8 @@ import Card from './Card'
 import styled from 'styled-components'
 import { AiOutlineRight,AiOutlineLeft } from 'react-icons/ai';
 
-export default function CardsSlider({data, title}) {
+
+export default React.memo(function CardsSlider({data, title}) {
     const [showControls, setShowControls] = useState(false);
     const listRef = useRef();
     const [sliderPosition, setSliderPosition] = useState(0);
@@ -49,7 +50,7 @@ export default function CardsSlider({data, title}) {
 
     </Container>
   );
-}
+});
 
 const Container = styled.div`
     gap: 1rem;
