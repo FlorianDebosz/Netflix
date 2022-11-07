@@ -30,6 +30,7 @@ export default function Netflix() {
         setIsScrolled(window.pageYOffset === 0 ? false : true);
         return () => (window.onscroll= null);
     };
+    
     return ( 
         <Container>
             <Navbar isScrolled={isScrolled} />
