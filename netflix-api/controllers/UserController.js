@@ -21,3 +21,15 @@ module.exports.addToLikedMovies = async(req,res) => {
         return res.json({msg: "Error when adding a movie"});
     }
 };
+
+module.exports.getLikedMovies = async(req,res)=> {
+    try {
+        const { email } = req.params;
+        const user = await User.findOne({email});
+        if(user) {
+            res.json({msg: "success", movies: user.likedMovies});
+        }else return res.json({msg: "User with given email not found"});
+    }catch(err) {
+        return res.json({msg: "Error getting movies"});
+    }
+}
