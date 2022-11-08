@@ -11,11 +11,14 @@ import { useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { firebaseAuth } from '../utils/firebase-config';
 import axios from "axios";
+import { removeFromWatchlist } from '../store';
+import { useDispatch } from 'react-redux';
 
 export default React.memo(function Card({movieData, isLiked = false}) {
     const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
     const [email,setEmail] = useState(undefined);
+    const dispatch = useDispatch();
 
     onAuthStateChanged(firebaseAuth, (currentUser)=> {
       if(currentUser) setEmail(currentUser.email);
@@ -70,7 +73,12 @@ export default React.memo(function Card({movieData, isLiked = false}) {
                                 <RiThumbDownFill title="Dislike"/>  
                                 {
                                     isLiked ? (
-                                        <BsCheck title="Remove from list "/>
+                                        <BsCheck 
+                                          title="Remove from list" 
+                                          onClick={()=>
+                                            dispatch(removeFromWatchlist({movieId: movieData.id, email}))
+                                          }
+                                        />
                                     ) : (
                                         <AiOutlinePlus title="Add to my list" onClick= {addToList}/>
                                     )

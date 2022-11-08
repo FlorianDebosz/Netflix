@@ -15,13 +15,12 @@ export default function  UserLiked() {
     const navigate = useNavigate();
 
     const [email,setEmail] = useState(undefined);
+    const dispatch = useDispatch();
 
     onAuthStateChanged(firebaseAuth, (currentUser)=> {
       if(currentUser) setEmail(currentUser.email);
       else navigate("/login");
     });
-
-    const dispatch = useDispatch();
 
     useEffect(() => {
         if(email) {
@@ -54,7 +53,7 @@ export default function  UserLiked() {
             </div>
         </div>
     </Container>
-  )
+  );
 }
 
 const Container = styled.div`
